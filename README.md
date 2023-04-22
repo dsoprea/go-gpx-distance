@@ -14,6 +14,10 @@ distanceKm, err := Calculate(r)
 log.PanicIf(err)
 ```
 
+# Implementation
+
+The points are first sorted by timestamp. The distance between each point is then calculated via the [Haversine](https://en.wikipedia.org/wiki/Haversine_formula) formula and all distances are summed together.
+
 # Installing Commands
 
 If you just want the commands and not the sourcecode, install via:
