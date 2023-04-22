@@ -11,11 +11,8 @@ import (
 	"github.com/dsoprea/go-logging/v2"
 )
 
-// TODO(dustin): !! Move the extraction, sort, and calculation logic to a separate, exported type
-
-type (
-	sortableTrackPoints []gpxcommon.TrackPoint
-)
+// sortableTrackPoints allows us to sort the points by timestamp
+type sortableTrackPoints []gpxcommon.TrackPoint
 
 func (stp sortableTrackPoints) Len() int {
 	return len(stp)
@@ -29,14 +26,14 @@ func (stp sortableTrackPoints) Less(i, j int) bool {
 	return stp[i].Time.Before(stp[j].Time)
 }
 
+// Calculate returns the number of kilometers traveled GPX data given a reader
+// for that data. It first sorts by timestamp.
 func Calculate(r io.Reader) (totalDistanceKm float64, err error) {
 	defer func() {
 		if state := recover(); state != nil {
 			err = log.Wrap(state.(error))
 		}
 	}()
-
-	// TODO(dustin): !! Add test
 
 	points, err := gpxreader.ExtractTrackPoints(r)
 	log.PanicIf(err)
