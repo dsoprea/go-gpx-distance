@@ -22,3 +22,17 @@ If you just want the commands and not the sourcecode, install via:
 $ go install github.com/dsoprea/go-gpx-distance/command/go-gpx-distance@latest
 $ go install github.com/dsoprea/go-gpx-distance/command/go-gpx-distance-path@latest
 ```
+
+# XML Encoding
+
+Note that, since Go doesn't supporting XML decoding for any encoding but UTF-8, any GPX files with any other encoding but this will yield empty data. If you have a sufficiently similar encoding, such as ISO-8859-1, the current, best solution would just be to change the encoding to "UTF-8":
+
+From:
+```
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+```
+
+To:
+```
+<?xml version="1.0" encoding="UTF-8" ?>
+```
